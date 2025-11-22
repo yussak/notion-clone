@@ -21,7 +21,7 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=postgresql://postgres:password@db:5432/myapp
+      - DATABASE_URL=postgresql://postgres:password@db:5432/notion_clone
     command: yarn dev
     depends_on:
       - db
