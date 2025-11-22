@@ -3,6 +3,17 @@ import client = require("../generated/prisma/client");
 
 const prisma = new client.PrismaClient();
 
+export const getPage = async (req: Request, res: Response) => {
+  const page = await prisma.page.findUnique({
+    where: { id: req.params.id },
+    include: { blocks: true },
+  });
+
+  console.log("page is:", page);
+
+  res.json(page);
+};
+
 export const createPage = async (req: Request, res: Response) => {
   try {
     const page = await prisma.page.create({
