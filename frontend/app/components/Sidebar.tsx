@@ -6,25 +6,26 @@ import { useRouter } from "next/navigation";
 export default function Sidebar() {
   const router = useRouter();
 
-  // TODO: エラーハンドリングなど
-  const handleAddPage = async() => {
+  const handleAddPage = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/pages', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8080/api/pages", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-      })
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create page");
+      }
 
       const data = await response.json();
-      const createdPageId = data.id;
 
-      router.push(`/pages/${createdPageId}`);
-
+      router.push(`/pages/${data.id}`);
     } catch (error) {
-      console.error('Error creating page:', error);
+      console.error("Error creating page:", error);
     }
-  }
+  };
 
   return (
     <nav
