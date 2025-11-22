@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
-import client = require("../generated/prisma/client");
+import type { Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
 
-const prisma = new client.PrismaClient();
+const prisma = new PrismaClient();
 
 export const getPage = async (req: Request, res: Response) => {
   if (!req.params.id) {
