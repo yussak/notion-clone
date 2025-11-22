@@ -4,6 +4,10 @@ import client = require("../generated/prisma/client");
 const prisma = new client.PrismaClient();
 
 export const getPage = async (req: Request, res: Response) => {
+  if (!req.params.id) {
+    return res.status(400).json({ error: "Page ID is required" });
+  }
+
   const page = await prisma.page.findUnique({
     where: { id: req.params.id },
     include: { blocks: true },
