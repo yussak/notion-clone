@@ -73,8 +73,7 @@ export default function Page({ params }) {
 
   return (
     <div>
-      id: {id}
-      <label for="block-select">block type:</label>
+      <label htmlFor="block-select">block type:</label>
       <select
         name="block"
         id="block-select"
