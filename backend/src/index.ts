@@ -1,5 +1,7 @@
-import express from 'express';
+import express from "express";
 import cors from "cors";
+import pagesRouter from "./routes/pageRoutes";
+
 const app = express();
 const PORT = 8080;
 
@@ -7,9 +9,7 @@ const PORT = 8080;
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
+app.use("/api", pagesRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
