@@ -4,7 +4,7 @@ import {
   createBlocks,
   updateBlocks,
   getPage,
-} from "../controllers/pageController";
+} from "../controllers/pageController.js";
 
 const pagesRouter = Router();
 
