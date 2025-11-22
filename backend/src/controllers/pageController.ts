@@ -49,3 +49,29 @@ export const createBlocks = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// MEMO: 一旦pageに書いてる
+export const updateBlocks = async (req: Request, res: Response) => {
+  try {
+    const { blockId } = req.params;
+    const { type, content } = req.body;
+
+    console.log("req params:", req.params);
+    console.log("blockId:", blockId);
+
+    const block = await prisma.block.update({
+      where: { id: blockId },
+      data: {
+        type,
+        content,
+        // TODO: 一旦固定値
+        position: 0,
+      },
+    });
+
+    res.status(201).json(block);
+  } catch (error) {
+    console.error("Error updating block:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

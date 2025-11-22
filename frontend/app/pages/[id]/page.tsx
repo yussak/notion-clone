@@ -33,6 +33,7 @@ export default function Page({ params }) {
 
   // TODO: 分割
   const handleSavePage = async () => {
+    console.log("handlesave blockId:", blockId);
     if (!blockId) {
       try {
         const response = await fetch(
