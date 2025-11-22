@@ -29,15 +29,13 @@ services:
   db:
     image: postgres:17
     ports:
-      # TODO: 5432にしたい
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
-      # TODO: rename
-      - POSTGRES_DB=myapp
+      - POSTGRES_DB=notion_clone
 
 volumes:
   postgres_data:
