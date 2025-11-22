@@ -11,12 +11,10 @@ export default function Page({ params }) {
   useEffect(() => {
     const fetchBlocks = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/api/pages/${id}`);
-        const page = await res.json();
+        const response = await fetch(`http://localhost:8080/api/pages/${id}`);
+        const page = await response.json();
 
-        console.log("fetched page:", page);
-        console.log("fetched page.blocks:", page.blocks);
-
+        // MEMO: 仮
         if (page.blocks.length > 0) {
           const firstBlock = page.blocks[0];
           setBlockId(firstBlock.id);
@@ -33,7 +31,6 @@ export default function Page({ params }) {
 
   // TODO: 分割
   const handleSavePage = async () => {
-    console.log("handlesave blockId:", blockId);
     if (!blockId) {
       try {
         const response = await fetch(

@@ -9,8 +9,6 @@ export const getPage = async (req: Request, res: Response) => {
     include: { blocks: true },
   });
 
-  console.log("page is:", page);
-
   res.json(page);
 };
 
@@ -55,9 +53,6 @@ export const updateBlocks = async (req: Request, res: Response) => {
   try {
     const { blockId } = req.params;
     const { type, content } = req.body;
-
-    console.log("req params:", req.params);
-    console.log("blockId:", blockId);
 
     const block = await prisma.block.update({
       where: { id: blockId },
