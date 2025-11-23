@@ -81,7 +81,7 @@ export default function Page({ params }) {
     <div>
       {blocks.map((block, i) => (
         <div key={i}>
-          <label htmlFor="block-select">block type:</label>
+          <label htmlFor="block-select">type:</label>
           <select
             name="block"
             id="block-select"
