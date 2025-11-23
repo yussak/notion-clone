@@ -21,21 +21,22 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=postgresql://postgres:password@db:5432/myapp
-    command: yarn dev
+      - DATABASE_URL=postgresql://postgres:password@db:5432/notion_clone
+    # Prisma Clientはnode_modulesに生成されるが、コンテナ再起動で消えるため起動時に毎回生成が必要
+    command: sh -c "npx prisma generate && yarn dev"
     depends_on:
       - db
 
   db:
     image: postgres:17
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=myapp
+      - POSTGRES_DB=notion_clone
 
 volumes:
   postgres_data:
