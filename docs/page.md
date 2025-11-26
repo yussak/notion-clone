@@ -1,4 +1,4 @@
-雑メモ
+## 雑メモ
 
 Page が Block を持つ
 
@@ -8,24 +8,30 @@ Block には見出し、段落等色々ある
 
 ---
 
-Phase 1: 最初に実装(今回)
-バックエンド:
+Phase 1
 
 - [x] pages テーブル、blocks テーブルの作成
 - [] ページ CRUD API
+
+  - [x] create
+  - [] title create, update, delete
+  - [] read
+    - [x] 詳細
+    - [] ページ一覧画面 → 後で良さそう
+  - [] update
+    - [x] 保存ボタンで全ブロック保存
+  - [] delete
+
 - [] ブロック CRUD API
 
-- [] ページ一覧画面 → 後で良さそう
-- [] ページ編集画面
-- [x] ブロックの表示(input)
-
-- [x] Enter で次のブロック追加
-- [] 空ブロックで Backspace で削除
-
-# , ## 入力で type 変換(リアルタイム)
-
-type 別の CSS 装飾(heading1 は大きく、など)
-保存ボタンで全ブロック保存
+  - [] create
+    - [x] Enter で次のブロック追加
+    - [] 「# 」, 「## 」入力で type 変換(リアルタイム)
+    - [] type 別の CSS 装飾(heading1 は大きく、など)
+  - [x] read
+  - [x] update
+  - [] delete
+    - [] 空ブロックで Backspace で削除
 
 Phase 2: 後回し
 
