@@ -2,7 +2,11 @@
 
 import { use, useEffect, useState } from "react";
 
-export default function Page({ params }) {
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export default function Page({ params }: PageProps) {
   const { id } = use(params);
 
   const [blocks, setBlocks] = useState([
