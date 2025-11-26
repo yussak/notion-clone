@@ -26,7 +26,10 @@ export default function Page({ params }) {
     fetchBlocks();
   }, [id]);
 
-  const handleKeyDown = (e, index: number) => {
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
     if (e.key === "Enter") {
       // フォーム送信を防ぐ
       e.preventDefault();
