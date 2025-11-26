@@ -12,15 +12,15 @@ Phase 1: 最初に実装(今回)
 バックエンド:
 
 - [x] pages テーブル、blocks テーブルの作成
-      ページ CRUD API
-      ブロック CRUD API
-      ブロック並び替え API
+- [] ページ CRUD API
+- [] ブロック CRUD API
 
-ページ一覧画面 → 後で良さそう
-ページ編集画面
-ブロックの表示(textarea or input)
-Enter で次のブロック追加
-空ブロックで Backspace で削除
+- [] ページ一覧画面 → 後で良さそう
+- [] ページ編集画面
+- [x] ブロックの表示(input)
+
+- [x] Enter で次のブロック追加
+- [] 空ブロックで Backspace で削除
 
 # , ## 入力で type 変換(リアルタイム)
 
