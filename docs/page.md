@@ -26,7 +26,7 @@ Phase 1
 
   - [] create
     - [x] Enter で次のブロック追加
-    - [] 「# 」, 「## 」入力で type 変換(リアルタイム)
+    - [] 「# 」, 「## 」入力で type 変換(リアルタイム)→ プルダウン廃止 WIP
     - [] type 別の CSS 装飾(heading1 は大きく、など)
   - [x] read
   - [x] update
