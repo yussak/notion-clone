@@ -8,7 +8,7 @@ export default function Sidebar() {
 
   const handleAddPage = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/pages", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/pages`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

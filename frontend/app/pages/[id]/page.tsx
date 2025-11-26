@@ -16,7 +16,9 @@ export default function Page({ params }: PageProps) {
   useEffect(() => {
     const fetchBlocks = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/api/pages/${id}`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/pages/${id}`
+        );
         const page = await response.json();
 
         if (page.blocks.length > 0) {
@@ -57,7 +59,7 @@ export default function Page({ params }: PageProps) {
     const savePromises = blocks.map(async (block, i) => {
       if (!block.id) {
         const res = await fetch(
-          `http://localhost:8080/api/pages/${id}/blocks`,
+          `${process.env.NEXT_PUBLIC_API_URL}/pages/${id}/blocks`,
           {
             method: "POST",
             headers: {
@@ -69,7 +71,7 @@ export default function Page({ params }: PageProps) {
         const data = await res.json();
         return { ...block, id: data.id };
       } else {
-        await fetch(`http://localhost:8080/api/blocks/${block.id}`, {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blocks/${block.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
