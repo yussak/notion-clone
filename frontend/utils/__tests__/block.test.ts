@@ -56,13 +56,30 @@ describe("extractBlockType", () => {
 describe("extractTypesFromBlocks", () => {
   it("該当するtypeがない場合にブロックがそのまま返る", () => {
     const blocks = [
-      { id: "1", type: "paragraph", content: "通常のテキスト", order: 0 },
+      { id: "1", type: "paragraph", content: "テキスト1", order: 0 },
+      { id: "1", type: "paragraph", content: "#テキスト2", order: 0 },
+    ];
+
+    // extractBlockTypeをモックするには別ファイルにする必要があるが、そこまでしなくてもシンプルなので直接読んでいる
+    const result = extractTypesFromBlocks(blocks);
+
+    expect(result).toEqual([
+      { id: "1", type: "paragraph", content: "テキスト1", order: 0 },
+      { id: "1", type: "paragraph", content: "#テキスト2", order: 0 },
+    ]);
+  });
+
+  it("該当するtypeがあるものとないものが混ざっている場合にブロックが適切に返る", () => {
+    const blocks = [
+      { id: "1", type: "paragraph", content: "テキスト1", order: 0 },
+      { id: "1", type: "heading-2", content: "## テキスト2", order: 0 },
     ];
 
     const result = extractTypesFromBlocks(blocks);
 
     expect(result).toEqual([
-      { id: "1", type: "paragraph", content: "通常のテキスト", order: 0 },
+      { id: "1", type: "paragraph", content: "テキスト1", order: 0 },
+      { id: "1", type: "heading-2", content: "テキスト2", order: 0 },
     ]);
   });
 });
