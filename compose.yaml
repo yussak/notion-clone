@@ -5,7 +5,14 @@ services:
       - "3000:3000"
     volumes:
       - ./frontend:/app
+      # TODO: こちら必要なのかを確認
       - /app/node_modules
+      # yarn workspaces 使用時、パッケージの実体はルートの node_modules にインストールされる
+      # frontend/node_modules/.bin/* は ../../../node_modules/* へのシンボリックリンクとなる
+      # コンテナ内では /app/node_modules/.bin/* が /node_modules/* を参照するため、
+      # ルートの node_modules をマウントしないとパッケージが見つからずエラーになる
+      # TODO:backendも必要になったら対応する
+      - ./node_modules:/node_modules
     environment:
       - NODE_ENV=development
     command: yarn dev
