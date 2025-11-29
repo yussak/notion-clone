@@ -1,0 +1,13 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "lint": "yarn run lint:frontend && yarn run lint:backend",
+    "lint:frontend": "cd frontend && yarn run lint",
+    "lint:backend": "cd backend && yarn run lint"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ]
+}
