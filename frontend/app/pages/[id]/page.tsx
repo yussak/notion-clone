@@ -14,7 +14,7 @@ export default function Page({ params }: PageProps) {
     { id: null, type: "paragraph", content: "", order: 0 },
   ]);
 
-  const parseBlockShortcut = (content: string) => {
+  const splitPrefixFromContent = (content: string) => {
     const shortcuts: Record<string, string> = {
       "# ": BLOCK_TYPES.HEADING_1,
       "## ": BLOCK_TYPES.HEADING_2,
