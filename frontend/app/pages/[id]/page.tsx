@@ -1,6 +1,6 @@
 "use client";
 
-import { BLOCK_TYPES } from "@/constants/blockType";
+import { extractBlockType } from "@/utils/block";
 import { use, useEffect, useState } from "react";
 
 type PageProps = {
@@ -20,24 +20,6 @@ export default function Page({ params }: PageProps) {
   const [blocks, setBlocks] = useState([
     { id: null, type: "paragraph", content: "", order: 0 },
   ]);
-
-  const extractBlockType = (content: string) => {
-    const shortcuts: Record<string, string> = {
-      "# ": BLOCK_TYPES.HEADING_1,
-      "## ": BLOCK_TYPES.HEADING_2,
-      "- ": BLOCK_TYPES.LIST,
-    };
-
-    for (const [prefix, type] of Object.entries(shortcuts)) {
-      if (content.startsWith(prefix)) {
-        return {
-          type,
-          content: content.slice(prefix.length),
-        };
-      }
-    }
-    return null;
-  };
 
   useEffect(() => {
     const fetchBlocks = async () => {

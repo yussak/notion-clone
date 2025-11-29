@@ -1,0 +1,21 @@
+import { BLOCK_TYPES } from "@/constants/blockType";
+
+export const extractBlockType = (content: string) => {
+  const shortcuts: Record<string, string> = {
+    "# ": BLOCK_TYPES.HEADING_1,
+    "## ": BLOCK_TYPES.HEADING_2,
+    "- ": BLOCK_TYPES.LIST,
+  };
+
+  for (const [prefix, type] of Object.entries(shortcuts)) {
+    if (content.startsWith(prefix)) {
+      return {
+        type,
+        content: content.slice(prefix.length),
+      };
+    }
+  }
+
+  // マッチしない場合paragraphでそのまま返そうかと思ったがこの関数の責務はtypeの取得に絞ろうと思ったのでnullを返す
+  return null;
+};
