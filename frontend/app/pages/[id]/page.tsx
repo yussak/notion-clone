@@ -1,5 +1,6 @@
 "use client";
 
+import { BLOCK_TYPES } from "@/constants/blockType";
 import { use, useEffect, useState } from "react";
 
 type PageProps = {
@@ -15,10 +16,9 @@ export default function Page({ params }: PageProps) {
 
   const parseBlockShortcut = (content: string) => {
     const shortcuts: Record<string, string> = {
-      // TODO: 定数にしたい
-      "# ": "heading-1",
-      "## ": "heading-2",
-      "- ": "list",
+      "# ": BLOCK_TYPES.HEADING_1,
+      "## ": BLOCK_TYPES.HEADING_2,
+      "- ": BLOCK_TYPES.LIST,
     };
 
     for (const [prefix, type] of Object.entries(shortcuts)) {
