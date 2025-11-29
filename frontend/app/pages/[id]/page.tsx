@@ -73,18 +73,27 @@ export default function Page({ params }: PageProps) {
     }
   };
 
-  // TODO: 分割
-  const handleSavePage = async () => {
-    // 保存前にプレフィックスをパース
-    const processedBlocks = blocks.map((block) => {
-      const parsed = parseBlockShortcut(block.content);
-      if (parsed) {
-        return { ...block, type: parsed.type, content: parsed.content };
+  const extractTypesFromBlocks = (blocks) => {
+    const extractedBlocks = blocks.map((block) => {
+      const extractedBlock = extractBlockType(block.content);
+      if (extractedBlock) {
+        return {
+          ...block,
+          type: extractedBlock.type,
+          content: extractedBlock.content,
+        };
       }
       return block;
     });
 
-    const savePromises = processedBlocks.map(async (block) => {
+    return extractedBlocks;
+  };
+
+  // TODO: 分割
+  const handleSavePage = async () => {
+    const extractedBlocks = extractTypesFromBlocks(blocks);
+
+    const savePromises = extractedBlocks.map(async (block) => {
       if (!block.id) {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/pages/${id}/blocks`,
