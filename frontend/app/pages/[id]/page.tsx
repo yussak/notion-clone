@@ -56,7 +56,7 @@ export default function Page({ params }: PageProps) {
 
   // TODO: 分割
   const handleSavePage = async () => {
-    const savePromises = blocks.map(async (block, i) => {
+    const savePromises = blocks.map(async (block) => {
       if (!block.id) {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/pages/${id}/blocks`,
