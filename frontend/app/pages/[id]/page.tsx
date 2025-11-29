@@ -1,17 +1,10 @@
 "use client";
 
-import { extractBlockType } from "@/utils/block";
+import { extractTypesFromBlocks } from "@/utils/block";
 import { use, useEffect, useState } from "react";
 
 type PageProps = {
   params: Promise<{ id: string }>;
-};
-
-type Block = {
-  id: string | null;
-  type: string;
-  content: string;
-  order: number;
 };
 
 export default function Page({ params }: PageProps) {
@@ -60,22 +53,6 @@ export default function Page({ params }: PageProps) {
       });
       setBlocks(newBlocks);
     }
-  };
-
-  const extractTypesFromBlocks = (blocks: Block[]) => {
-    const extractedBlocks = blocks.map((block) => {
-      const extractedBlock = extractBlockType(block.content);
-      if (extractedBlock) {
-        return {
-          ...block,
-          type: extractedBlock.type,
-          content: extractedBlock.content,
-        };
-      }
-      return block;
-    });
-
-    return extractedBlocks;
   };
 
   // TODO: 分割
