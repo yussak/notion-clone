@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { BLOCK_TYPES } from "@/constants/blockType";
-import { extractBlockType } from "../block";
+import { extractBlockType, extractTypesFromBlocks } from "../block";
 
 describe("extractBlockType", () => {
   describe("ショートカットに該当する場合", () => {
@@ -50,5 +50,19 @@ describe("extractBlockType", () => {
 
       expect(result).toEqual(null);
     });
+  });
+});
+
+describe("extractTypesFromBlocks", () => {
+  it("該当するtypeがない場合にブロックがそのまま返る", () => {
+    const blocks = [
+      { id: "1", type: "paragraph", content: "通常のテキスト", order: 0 },
+    ];
+
+    const result = extractTypesFromBlocks(blocks);
+
+    expect(result).toEqual([
+      { id: "1", type: "paragraph", content: "通常のテキスト", order: 0 },
+    ]);
   });
 });
