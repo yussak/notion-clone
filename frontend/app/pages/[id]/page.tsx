@@ -7,6 +7,13 @@ type PageProps = {
   params: Promise<{ id: string }>;
 };
 
+type Block = {
+  id: string | null;
+  type: string;
+  content: string;
+  order: number;
+};
+
 export default function Page({ params }: PageProps) {
   const { id } = use(params);
 
@@ -73,7 +80,7 @@ export default function Page({ params }: PageProps) {
     }
   };
 
-  const extractTypesFromBlocks = (blocks) => {
+  const extractTypesFromBlocks = (blocks: Block[]) => {
     const extractedBlocks = blocks.map((block) => {
       const extractedBlock = extractBlockType(block.content);
       if (extractedBlock) {
