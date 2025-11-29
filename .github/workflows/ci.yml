@@ -1,9 +1,11 @@
-# 一旦最低限に絞っている
 # TODO: 変更ファイルだけlint
 name: Lint
 
 on:
+  pull_request:
   push:
+    branches:
+      - main
 
 jobs:
   lint:
