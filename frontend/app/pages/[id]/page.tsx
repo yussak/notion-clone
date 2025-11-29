@@ -13,6 +13,25 @@ export default function Page({ params }: PageProps) {
     { id: null, type: "paragraph", content: "", order: 0 },
   ]);
 
+  const parseBlockShortcut = (content: string) => {
+    const shortcuts: Record<string, string> = {
+      // TODO: 定数にしたい
+      "# ": "heading-1",
+      "## ": "heading-2",
+      "- ": "list",
+    };
+
+    for (const [prefix, type] of Object.entries(shortcuts)) {
+      if (content.startsWith(prefix)) {
+        return {
+          type,
+          content: content.slice(prefix.length),
+        };
+      }
+    }
+    return null;
+  };
+
   useEffect(() => {
     const fetchBlocks = async () => {
       try {
@@ -56,7 +75,16 @@ export default function Page({ params }: PageProps) {
 
   // TODO: 分割
   const handleSavePage = async () => {
-    const savePromises = blocks.map(async (block) => {
+    // 保存前にプレフィックスをパース
+    const processedBlocks = blocks.map((block) => {
+      const parsed = parseBlockShortcut(block.content);
+      if (parsed) {
+        return { ...block, type: parsed.type, content: parsed.content };
+      }
+      return block;
+    });
+
+    const savePromises = processedBlocks.map(async (block) => {
       if (!block.id) {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/pages/${id}/blocks`,
@@ -90,22 +118,6 @@ export default function Page({ params }: PageProps) {
     <div>
       {blocks.map((block, i) => (
         <div key={i}>
-          <label htmlFor="block-select">type:</label>
-          <select
-            name="block"
-            id="block-select"
-            value={block.type}
-            onChange={(e) => {
-              const newBlocks = [...blocks];
-              newBlocks[i].type = e.target.value;
-              setBlocks(newBlocks);
-            }}
-          >
-            <option value="paragraph">段落</option>
-            <option value="heading-1">見出し1</option>
-            <option value="heading-2">見出し2</option>
-            <option value="list">リスト</option>
-          </select>
           <input
             type="text"
             placeholder="blockの中身"
