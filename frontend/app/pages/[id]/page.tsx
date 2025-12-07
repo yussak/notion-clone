@@ -2,13 +2,16 @@
 
 import { BLOCK_TYPES } from "@/constants/blockType";
 import { extractTypesFromBlocks } from "@/utils/block";
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 
 type PageProps = {
   params: Promise<{ id: string }>;
 };
 
+// TODO: 保存ボタンを押しても保存されない場合がありそう
+// TODO: 保存するとブロックの順番が変わることがある
 export default function Page({ params }: PageProps) {
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const { id } = use(params);
 
   const [blocks, setBlocks] = useState([
@@ -34,9 +37,12 @@ export default function Page({ params }: PageProps) {
     fetchBlocks();
   }, [id]);
 
+  // TODO: 関数分離
+  // TODO: 追加時にもカーソル移動したい
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
-    index: number
+    index: number,
+    block: any
   ) => {
     if (e.key === "Enter") {
       // フォーム送信を防ぐ
@@ -53,6 +59,18 @@ export default function Page({ params }: PageProps) {
         order: 0,
       });
       setBlocks(newBlocks);
+    } else if (
+      e.key === "Backspace" &&
+      block.content === "" &&
+      blocks.length > 1
+    ) {
+      e.preventDefault();
+
+      const newBlocks = [...blocks];
+      newBlocks.splice(index, 1);
+      setBlocks(newBlocks);
+
+      inputRefs.current[index - 1]?.focus();
     }
   };
 
@@ -109,12 +127,16 @@ export default function Page({ params }: PageProps) {
             placeholder="blockの中身"
             value={block.content}
             style={{ fontSize: getFontSize(block.type) }}
+            // TODO: eventにかえる
             onChange={(e) => {
               const newBlocks = [...blocks];
               newBlocks[i].content = e.target.value;
               setBlocks(newBlocks);
             }}
-            onKeyDown={(e) => handleKeyDown(e, i)}
+            onKeyDown={(e) => handleKeyDown(e, i, block)}
+            ref={(element) => {
+              inputRefs.current[i] = element;
+            }}
           />
         </div>
       ))}
