@@ -127,13 +127,12 @@ export default function Page({ params }: PageProps) {
             placeholder="blockの中身"
             value={block.content}
             style={{ fontSize: getFontSize(block.type) }}
-            // TODO: eventにかえる
-            onChange={(e) => {
+            onChange={(event) => {
               const newBlocks = [...blocks];
-              newBlocks[i].content = e.target.value;
+              newBlocks[i].content = event.target.value;
               setBlocks(newBlocks);
             }}
-            onKeyDown={(e) => handleKeyDown(e, i, block)}
+            onKeyDown={(event) => handleKeyDown(event, i, block)}
             ref={(element) => {
               inputRefs.current[i] = element;
             }}
