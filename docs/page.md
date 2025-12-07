@@ -17,10 +17,10 @@ Phase 1
   - [] title create, update, delete
   - [] read
     - [x] 詳細
-    - [] ページ一覧画面 → 後で良さそう
+    - [] ページ一覧画面 → 後で OK
   - [] update
     - [x] 保存ボタンで全ブロック保存
-  - [] delete
+  - [] delete → 後で OK
 
 - [] ブロック CRUD API
 
@@ -30,8 +30,8 @@ Phase 1
     - [x] type 別の CSS 装飾(heading1 は大きく、など)
   - [x] read
   - [x] update
-  - [] delete
-    - [] 空ブロックで Backspace で削除
+  - [x] delete
+    - [x] 空ブロックで Backspace で削除
 
 Phase 2: 後回し
 
