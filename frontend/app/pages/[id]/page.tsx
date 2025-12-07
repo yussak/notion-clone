@@ -19,6 +19,8 @@ export default function Page({ params }: PageProps) {
     { id: null, type: BLOCK_TYPES.PARAGRAPH, content: "", order: 0 },
   ]);
 
+  const [deletedBlockIds, setDeletedBlockIds] = useState<string[]>([]);
+
   const [nextFocusBlockIndex, setNextFocusBlockIndex] = useState<number | null>(
     null
   );
@@ -83,6 +85,11 @@ export default function Page({ params }: PageProps) {
     ) {
       e.preventDefault();
 
+      // 削除されるブロックのIDを追跡
+      if (block.id) {
+        setDeletedBlockIds((prev) => [...prev, block.id]);
+      }
+
       const newBlocks = [...blocks];
       newBlocks.splice(index, 1);
       setBlocks(newBlocks);
@@ -94,6 +101,13 @@ export default function Page({ params }: PageProps) {
   // TODO: 分割
   const handleSavePage = async () => {
     const extractedBlocks = extractTypesFromBlocks(blocks);
+
+    // 削除されたブロックをまず削除
+    const deletePromises = deletedBlockIds.map(async (blockId) => {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blocks/${blockId}`, {
+        method: "DELETE",
+      });
+    });
 
     const savePromises = extractedBlocks.map(async (block) => {
       if (!block.id) {
@@ -121,8 +135,11 @@ export default function Page({ params }: PageProps) {
       }
     });
 
+    await Promise.all(deletePromises);
     const updatedBlocks = await Promise.all(savePromises);
     setBlocks(updatedBlocks);
+
+    setDeletedBlockIds([]);
   };
 
   const getFontSize = (type: string): string => {

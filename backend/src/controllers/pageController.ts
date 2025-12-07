@@ -74,3 +74,23 @@ export const updateBlocks = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// MEMO: 一旦pageに書いてる
+export const deleteBlock = async (req: Request, res: Response) => {
+  try {
+    const { blockId } = req.params;
+
+    if (!blockId) {
+      return res.status(400).json({ error: "Block ID is required" });
+    }
+
+    await prisma.block.delete({
+      where: { id: blockId },
+    });
+
+    res.status(200).json({ message: "Block deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting block:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
