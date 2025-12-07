@@ -1,6 +1,7 @@
 "use client";
 
 import { BLOCK_TYPES } from "@/constants/blockType";
+import { Block } from "@/types/block";
 import { extractTypesFromBlocks } from "@/utils/block";
 import { use, useEffect, useRef, useState } from "react";
 
@@ -42,7 +43,7 @@ export default function Page({ params }: PageProps) {
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number,
-    block: any
+    block: Block
   ) => {
     if (e.key === "Enter") {
       // フォーム送信を防ぐ

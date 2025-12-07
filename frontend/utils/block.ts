@@ -1,12 +1,5 @@
 import { BLOCK_TYPES } from "@/constants/blockType";
-
-// TODO: 一旦ここにおいている
-type Block = {
-  id: string | null;
-  type: string;
-  content: string;
-  order: number;
-};
+import { Block } from "@/types/block";
 
 export const extractBlockType = (content: string) => {
   const shortcuts: Record<string, string> = {
