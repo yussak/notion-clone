@@ -34,3 +34,13 @@ export const extractTypesFromBlocks = (blocks: Block[]) => {
     return block;
   });
 };
+
+export const getFontSize = (type: string): string => {
+  if (type === BLOCK_TYPES.HEADING_1) {
+    return "40px";
+  } else if (type === BLOCK_TYPES.HEADING_2) {
+    return "32px";
+  } else {
+    return "16px";
+  }
+};

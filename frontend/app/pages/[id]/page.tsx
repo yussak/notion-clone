@@ -2,7 +2,7 @@
 
 import { BLOCK_TYPES } from "@/constants/blockType";
 import { Block } from "@/types/block";
-import { extractTypesFromBlocks } from "@/utils/block";
+import { extractTypesFromBlocks, getFontSize } from "@/utils/block";
 import { use, useEffect, useRef, useState } from "react";
 
 type PageProps = {
@@ -150,16 +150,6 @@ export default function Page({ params }: PageProps) {
     setBlocks(updatedBlocks);
 
     setDeletedBlockIds([]);
-  };
-
-  const getFontSize = (type: string): string => {
-    if (type === BLOCK_TYPES.HEADING_1) {
-      return "40px";
-    } else if (type === BLOCK_TYPES.HEADING_2) {
-      return "32px";
-    } else {
-      return "16px";
-    }
   };
 
   return (
