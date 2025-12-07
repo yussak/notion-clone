@@ -10,7 +10,11 @@ export const getPage = async (req: Request, res: Response) => {
 
   const page = await prisma.page.findUnique({
     where: { id: req.params.id },
-    include: { blocks: true },
+    include: {
+      blocks: {
+        orderBy: { position: "asc" },
+      },
+    },
   });
 
   res.json(page);
@@ -33,15 +37,18 @@ export const createPage = async (req: Request, res: Response) => {
 export const createBlocks = async (req: Request, res: Response) => {
   try {
     const { pageId } = req.params;
-    const { type, content } = req.body;
+    const { type, content, position } = req.body;
+
+    if (!pageId) {
+      return res.status(400).json({ error: "Page ID is required" });
+    }
 
     const block = await prisma.block.create({
       data: {
         pageId,
         type,
         content,
-        // TODO: 一旦固定値
-        position: 0,
+        position: position ?? 0,
       },
     });
 
@@ -56,15 +63,18 @@ export const createBlocks = async (req: Request, res: Response) => {
 export const updateBlocks = async (req: Request, res: Response) => {
   try {
     const { blockId } = req.params;
-    const { type, content } = req.body;
+    const { type, content, position } = req.body;
+
+    if (!blockId) {
+      return res.status(400).json({ error: "Block ID is required" });
+    }
 
     const block = await prisma.block.update({
       where: { id: blockId },
       data: {
         type,
         content,
-        // TODO: 一旦固定値
-        position: 0,
+        position: position ?? 0,
       },
     });
 

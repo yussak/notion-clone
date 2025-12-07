@@ -10,13 +10,12 @@ type PageProps = {
 };
 
 // TODO: 保存ボタンを押しても保存されない場合がありそう
-// TODO: 保存するとブロックの順番が変わることがある
 export default function Page({ params }: PageProps) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const { id } = use(params);
 
   const [blocks, setBlocks] = useState([
-    { id: null, type: BLOCK_TYPES.PARAGRAPH, content: "", order: 0 },
+    { id: null, type: BLOCK_TYPES.PARAGRAPH, content: "", position: 0 },
   ]);
 
   const [deletedBlockIds, setDeletedBlockIds] = useState<string[]>([]);
@@ -73,7 +72,7 @@ export default function Page({ params }: PageProps) {
         id: null,
         type: BLOCK_TYPES.PARAGRAPH,
         content: "",
-        order: 0,
+        position: 0,
       });
       setBlocks(newBlocks);
 
@@ -109,7 +108,7 @@ export default function Page({ params }: PageProps) {
       });
     });
 
-    const savePromises = extractedBlocks.map(async (block) => {
+    const savePromises = extractedBlocks.map(async (block, index) => {
       if (!block.id) {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/pages/${id}/blocks`,
@@ -118,19 +117,30 @@ export default function Page({ params }: PageProps) {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ type: block.type, content: block.content }),
+            body: JSON.stringify({
+              type: block.type,
+              content: block.content,
+              position: index,
+            }),
           }
         );
         const data = await res.json();
         return { ...block, id: data.id };
       } else {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blocks/${block.id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ type: block.type, content: block.content }),
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/blocks/${block.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              type: block.type,
+              content: block.content,
+              position: index,
+            }),
+          }
+        );
         return block;
       }
     });
