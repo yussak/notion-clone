@@ -1,5 +1,6 @@
 "use client";
 
+import { BLOCK_TYPES } from "@/constants/blockType";
 import { extractTypesFromBlocks } from "@/utils/block";
 import { use, useEffect, useState } from "react";
 
@@ -89,6 +90,16 @@ export default function Page({ params }: PageProps) {
     setBlocks(updatedBlocks);
   };
 
+  const getFontSize = (type: string): string => {
+    if (type === BLOCK_TYPES.HEADING_1) {
+      return "40px";
+    } else if (type === BLOCK_TYPES.HEADING_2) {
+      return "32px";
+    } else {
+      return "16px";
+    }
+  };
+
   return (
     <div>
       {blocks.map((block, i) => (
@@ -97,6 +108,7 @@ export default function Page({ params }: PageProps) {
             type="text"
             placeholder="blockの中身"
             value={block.content}
+            style={{ fontSize: getFontSize(block.type) }}
             onChange={(e) => {
               const newBlocks = [...blocks];
               newBlocks[i].content = e.target.value;
