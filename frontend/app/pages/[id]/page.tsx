@@ -19,6 +19,21 @@ export default function Page({ params }: PageProps) {
     { id: null, type: "paragraph", content: "", order: 0 },
   ]);
 
+  const [nextFocusBlockIndex, setNextFocusBlockIndex] = useState<number | null>(
+    null
+  );
+
+  // blocks更新後、新しいDOM要素が生成されるのを待つ
+  useEffect(() => {
+    if (
+      nextFocusBlockIndex !== null &&
+      inputRefs.current[nextFocusBlockIndex]
+    ) {
+      inputRefs.current[nextFocusBlockIndex].focus();
+      setNextFocusBlockIndex(null);
+    }
+  }, [blocks, nextFocusBlockIndex]);
+
   useEffect(() => {
     const fetchBlocks = async () => {
       try {
@@ -39,7 +54,6 @@ export default function Page({ params }: PageProps) {
   }, [id]);
 
   // TODO: 関数分離
-  // TODO: 追加時にもカーソル移動したい
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number,
@@ -60,6 +74,8 @@ export default function Page({ params }: PageProps) {
         order: 0,
       });
       setBlocks(newBlocks);
+
+      setNextFocusBlockIndex(index + 1);
     } else if (
       e.key === "Backspace" &&
       block.content === "" &&
@@ -71,7 +87,7 @@ export default function Page({ params }: PageProps) {
       newBlocks.splice(index, 1);
       setBlocks(newBlocks);
 
-      inputRefs.current[index - 1]?.focus();
+      setNextFocusBlockIndex(index - 1);
     }
   };
 
