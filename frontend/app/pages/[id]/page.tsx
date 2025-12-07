@@ -16,7 +16,7 @@ export default function Page({ params }: PageProps) {
   const { id } = use(params);
 
   const [blocks, setBlocks] = useState([
-    { id: null, type: "paragraph", content: "", order: 0 },
+    { id: null, type: BLOCK_TYPES.PARAGRAPH, content: "", order: 0 },
   ]);
 
   const [nextFocusBlockIndex, setNextFocusBlockIndex] = useState<number | null>(
@@ -69,7 +69,7 @@ export default function Page({ params }: PageProps) {
       const newBlocks = [...blocks];
       newBlocks.splice(index + 1, 0, {
         id: null,
-        type: "paragraph",
+        type: BLOCK_TYPES.PARAGRAPH,
         content: "",
         order: 0,
       });
