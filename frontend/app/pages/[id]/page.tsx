@@ -127,20 +127,17 @@ export default function Page({ params }: PageProps) {
         const data = await res.json();
         return { ...block, id: data.id };
       } else {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/blocks/${block.id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              type: block.type,
-              content: block.content,
-              position: index,
-            }),
-          }
-        );
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blocks/${block.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            type: block.type,
+            content: block.content,
+            position: index,
+          }),
+        });
         return block;
       }
     });
