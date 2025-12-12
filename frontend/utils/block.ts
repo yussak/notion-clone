@@ -45,12 +45,14 @@ export const getFontSize = (type: string): string => {
   }
 };
 
+// TODO: currentIndexじゃなく追加位置のインデックスのほうが良さそう
 export const addBlock = (blocks, currentIndex: number) => {
   const newBlocks = [...blocks];
   newBlocks.splice(currentIndex + 1, 0, {
     id: null,
     type: BLOCK_TYPES.PARAGRAPH,
     content: "",
+    // MEMO: 現状はsavePromisesでposition: indexとしているのでここでは仮で0をセットで良さそう
     position: 0,
   });
 

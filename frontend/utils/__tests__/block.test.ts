@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { BLOCK_TYPES } from "@/constants/blockType";
-import { extractBlockType, extractTypesFromBlocks } from "../block";
+import { addBlock, extractBlockType, extractTypesFromBlocks } from "../block";
 
 describe("extractBlockType", () => {
   describe("ショートカットに該当する場合", () => {
@@ -81,5 +81,29 @@ describe("extractTypesFromBlocks", () => {
       { id: "1", type: "paragraph", content: "テキスト1", position: 0 },
       { id: "1", type: "heading-2", content: "テキスト2", position: 0 },
     ]);
+  });
+});
+
+describe("addBlock", () => {
+  const mockBlocks = [
+    { id: "1", type: BLOCK_TYPES.PARAGRAPH, content: "テキスト1", position: 0 },
+    { id: "2", type: BLOCK_TYPES.PARAGRAPH, content: "テキスト2", position: 1 },
+  ];
+
+  it("指定した位置の次に新しいブロックが追加される", () => {
+    const result = addBlock(mockBlocks, 1);
+    expect(result.newBlocks).toHaveLength(3);
+    expect(result.newBlocks[2]).toEqual({
+      id: null,
+      type: BLOCK_TYPES.PARAGRAPH,
+      content: "",
+      // TODO: 0になるのはおかしい気がするが一旦現状を記録
+      position: 0,
+    });
+  });
+
+  it("元の配列を変更しない", () => {
+    const result = addBlock(mockBlocks, 1);
+    expect(mockBlocks).not.toBe(result.newBlocks);
   });
 });
