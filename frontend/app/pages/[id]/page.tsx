@@ -2,7 +2,12 @@
 
 import { BLOCK_TYPES } from "@/constants/blockType";
 import { Block } from "@/types/block";
-import { extractTypesFromBlocks, getFontSize, addBlock } from "@/utils/block";
+import {
+  extractTypesFromBlocks,
+  getFontSize,
+  addBlock,
+  deleteBlock,
+} from "@/utils/block";
 import { use, useEffect, useRef, useState } from "react";
 
 type PageProps = {
@@ -81,11 +86,10 @@ export default function Page({ params }: PageProps) {
         setDeletedBlockIds((prev) => [...prev, block.id]);
       }
 
-      const newBlocks = [...blocks];
-      newBlocks.splice(index, 1);
-      setBlocks(newBlocks);
+      const result = deleteBlock(blocks, index);
 
-      setNextFocusBlockIndex(index - 1);
+      setBlocks(result.newBlocks);
+      setNextFocusBlockIndex(result.nextFocusIndex);
     }
   };
 

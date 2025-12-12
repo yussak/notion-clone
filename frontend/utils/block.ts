@@ -59,3 +59,10 @@ export const addBlock = (blocks, currentIndex: number) => {
 
   return { newBlocks, nextFocusIndex: currentIndex + 1 };
 };
+
+export const deleteBlock = (blocks, currentIndex: number) => {
+  const newBlocks = [...blocks];
+  newBlocks.splice(currentIndex, 1);
+
+  return { newBlocks, nextFocusIndex: currentIndex - 1 };
+};
