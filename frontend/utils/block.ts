@@ -49,6 +49,7 @@ export const getFontSize = (type: string): string => {
 export const insertBlockAfter = (blocks, currentIndex: number) => {
   const newBlocks = [...blocks];
   const nextFocusIndex = currentIndex + 1;
+
   newBlocks.splice(nextFocusIndex, 0, {
     id: null,
     type: BLOCK_TYPES.PARAGRAPH,
@@ -60,7 +61,7 @@ export const insertBlockAfter = (blocks, currentIndex: number) => {
   return { newBlocks, nextFocusIndex };
 };
 
-export const deleteBlock = (blocks, currentIndex: number) => {
+export const removeBlockAt = (blocks, currentIndex: number) => {
   const newBlocks = [...blocks];
   newBlocks.splice(currentIndex, 1);
 

@@ -6,7 +6,7 @@ import {
   extractTypesFromBlocks,
   getFontSize,
   insertBlockAfter,
-  deleteBlock,
+  removeBlockAt,
 } from "@/utils/block";
 import { use, useEffect, useRef, useState } from "react";
 
@@ -87,7 +87,7 @@ export default function Page({ params }: PageProps) {
         setDeletedBlockIds((prev) => [...prev, block.id]);
       }
 
-      const result = deleteBlock(blocks, currentIndex);
+      const result = removeBlockAt(blocks, currentIndex);
       if (!result) return;
 
       setBlocks(result.newBlocks);
