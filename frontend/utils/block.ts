@@ -44,3 +44,18 @@ export const getFontSize = (type: string): string => {
     return "16px";
   }
 };
+
+export const handleEnterKey = (blocks, currentIndex: number) => {
+  // 一番下の行だけでブロックを追加する
+  if (currentIndex !== blocks.length - 1) return;
+
+  const newBlocks = [...blocks];
+  newBlocks.splice(currentIndex + 1, 0, {
+    id: null,
+    type: BLOCK_TYPES.PARAGRAPH,
+    content: "",
+    position: 0,
+  });
+
+  return { newBlocks, nextFocusIndex: currentIndex + 1 };
+};

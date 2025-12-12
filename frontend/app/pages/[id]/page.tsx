@@ -2,7 +2,11 @@
 
 import { BLOCK_TYPES } from "@/constants/blockType";
 import { Block } from "@/types/block";
-import { extractTypesFromBlocks, getFontSize } from "@/utils/block";
+import {
+  extractTypesFromBlocks,
+  getFontSize,
+  handleEnterKey,
+} from "@/utils/block";
 import { use, useEffect, useRef, useState } from "react";
 
 type PageProps = {
@@ -61,22 +65,14 @@ export default function Page({ params }: PageProps) {
     block: Block
   ) => {
     if (e.key === "Enter") {
-      // フォーム送信を防ぐ
+      // handleEnterKeyを純粋関数にするためにここに書いている
       e.preventDefault();
 
-      // 一番下の行だけでブロックを追加する
-      if (index !== blocks.length - 1) return;
+      const result = handleEnterKey(blocks, index);
+      if (!result) return;
 
-      const newBlocks = [...blocks];
-      newBlocks.splice(index + 1, 0, {
-        id: null,
-        type: BLOCK_TYPES.PARAGRAPH,
-        content: "",
-        position: 0,
-      });
-      setBlocks(newBlocks);
-
-      setNextFocusBlockIndex(index + 1);
+      setBlocks(result.newBlocks);
+      setNextFocusBlockIndex(result.nextFocusIndex);
     } else if (
       e.key === "Backspace" &&
       block.content === "" &&
