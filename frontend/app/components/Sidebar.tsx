@@ -40,8 +40,6 @@ export default function Sidebar() {
     >
       <button onClick={handleAddPage}>ページ追加</button>
       <Link href="/">Home</Link>
-      <Link href="/dashboard">Dashboard</Link>
-      <Link href="/settings">Settings</Link>
     </nav>
   );
 }
