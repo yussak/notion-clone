@@ -88,7 +88,6 @@ export default function Page({ params }: PageProps) {
       }
 
       const result = removeBlockAt(blocks, currentIndex);
-      if (!result) return;
 
       setBlocks(result.newBlocks);
       setNextFocusBlockIndex(result.nextFocusIndex);
