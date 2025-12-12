@@ -66,21 +66,20 @@ export default function Page({ params }: PageProps) {
     block: Block
   ) => {
     if (e.key === "Enter") {
-      // addBlockを純粋関数にするためにここに書いている
-      e.preventDefault();
-
       // 一番下の行だけでブロックを追加する
       if (index !== blocks.length - 1) return;
+
+      // addBlockを純粋関数にするためにここに書いている
+      e.preventDefault();
 
       const result = addBlock(blocks, index);
 
       setBlocks(result.newBlocks);
       setNextFocusBlockIndex(result.nextFocusIndex);
-    } else if (
-      e.key === "Backspace" &&
-      block.content === "" &&
-      blocks.length > 1
-    ) {
+    } else if (e.key === "Backspace") {
+      if (block.content !== "") return;
+      if (blocks.length <= 1) return;
+
       e.preventDefault();
 
       // 削除されるブロックのIDを追跡
