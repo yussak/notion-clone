@@ -45,7 +45,7 @@ export const getFontSize = (type: string): string => {
   }
 };
 
-export const insertBlockAfter = (blocks, currentIndex: number) => {
+export const insertBlockAfter = (blocks: Block[], currentIndex: number) => {
   const newBlocks = [...blocks];
   const nextFocusIndex = currentIndex + 1;
 

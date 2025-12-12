@@ -18,7 +18,7 @@ export default function Page({ params }: PageProps) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const { id } = use(params);
 
-  const [blocks, setBlocks] = useState([
+  const [blocks, setBlocks] = useState<Block[]>([
     { id: null, type: BLOCK_TYPES.PARAGRAPH, content: "", position: 0 },
   ]);
 
