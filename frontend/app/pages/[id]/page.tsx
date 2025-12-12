@@ -90,6 +90,7 @@ export default function Page({ params }: PageProps) {
   };
 
   // TODO: 分割
+  // ブロック追加・削除は保存ボタンを押した時にDB反映するがフロントは即時反映とズレが有るので揃えたい
   const handleSavePage = async () => {
     const extractedBlocks = extractTypesFromBlocks(blocks);
 
