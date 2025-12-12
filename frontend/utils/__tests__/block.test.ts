@@ -1,6 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { BLOCK_TYPES } from "@/constants/blockType";
-import { addBlock, extractBlockType, extractTypesFromBlocks } from "../block";
+import {
+  insertBlockAfter,
+  extractBlockType,
+  extractTypesFromBlocks,
+} from "../block";
 
 describe("extractBlockType", () => {
   describe("ショートカットに該当する場合", () => {
@@ -84,14 +88,14 @@ describe("extractTypesFromBlocks", () => {
   });
 });
 
-describe("addBlock", () => {
+describe("insertBlockAfter", () => {
   const mockBlocks = [
     { id: "1", type: BLOCK_TYPES.PARAGRAPH, content: "テキスト1", position: 0 },
     { id: "2", type: BLOCK_TYPES.PARAGRAPH, content: "テキスト2", position: 1 },
   ];
 
   it("指定した位置の次に新しいブロックが追加される", () => {
-    const result = addBlock(mockBlocks, 1);
+    const result = insertBlockAfter(mockBlocks, 1);
     expect(result.newBlocks).toHaveLength(3);
     expect(result.newBlocks[2]).toEqual({
       id: null,
@@ -103,7 +107,12 @@ describe("addBlock", () => {
   });
 
   it("元の配列を変更しない", () => {
-    const result = addBlock(mockBlocks, 1);
+    const result = insertBlockAfter(mockBlocks, 1);
     expect(mockBlocks).not.toBe(result.newBlocks);
+  });
+
+  it("追加後のフォーカス位置が正しい", () => {
+    const result = insertBlockAfter(mockBlocks, 2);
+    expect(result.nextFocusIndex).toBe(3);
   });
 });
