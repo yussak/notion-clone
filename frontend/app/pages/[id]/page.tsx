@@ -69,8 +69,10 @@ export default function Page({ params }: PageProps) {
       // addBlockを純粋関数にするためにここに書いている
       e.preventDefault();
 
+      // 一番下の行だけでブロックを追加する
+      if (index !== blocks.length - 1) return;
+
       const result = addBlock(blocks, index);
-      if (!result) return;
 
       setBlocks(result.newBlocks);
       setNextFocusBlockIndex(result.nextFocusIndex);
@@ -87,6 +89,7 @@ export default function Page({ params }: PageProps) {
       }
 
       const result = deleteBlock(blocks, index);
+      if (!result) return;
 
       setBlocks(result.newBlocks);
       setNextFocusBlockIndex(result.nextFocusIndex);
