@@ -4,6 +4,7 @@ import {
   insertBlockAfter,
   extractBlockType,
   extractTypesFromBlocks,
+  removeBlockAt,
 } from "../block";
 
 describe("extractBlockType", () => {
@@ -115,4 +116,46 @@ describe("insertBlockAfter", () => {
     const result = insertBlockAfter(mockBlocks, 2);
     expect(result.nextFocusIndex).toBe(3);
   });
+});
+
+describe("removeBlockAt", () => {
+  const mockBlocks = [
+    { id: "1", type: BLOCK_TYPES.PARAGRAPH, content: "テキスト1", position: 0 },
+    { id: "2", type: BLOCK_TYPES.PARAGRAPH, content: "テキスト2", position: 1 },
+    { id: "3", type: BLOCK_TYPES.PARAGRAPH, content: "テキスト3", position: 2 },
+  ];
+
+  it("指定した位置のブロックが削除される", () => {
+    const result = removeBlockAt(mockBlocks, 2);
+    expect(result.newBlocks).toHaveLength(2);
+    expect(result.newBlocks).toEqual([
+      {
+        id: "1",
+        type: BLOCK_TYPES.PARAGRAPH,
+        content: "テキスト1",
+        position: 0,
+      },
+      {
+        id: "2",
+        type: BLOCK_TYPES.PARAGRAPH,
+        content: "テキスト2",
+        position: 1,
+      },
+    ]);
+  });
+
+  it("元の配列を変更しない", () => {
+    const result = removeBlockAt(mockBlocks, 2);
+    expect(mockBlocks).not.toBe(result.newBlocks);
+  });
+
+  it("追加後のフォーカス位置が正しい", () => {
+    const result = removeBlockAt(mockBlocks, 2);
+    expect(result.nextFocusIndex).toBe(1);
+  });
+});
+
+describe.todo("handleKeyDown", () => {
+  // TODO: 書く
+  // ここで、insertBlockAfterで末尾のみに追加できるか、などをテストしたい
 });
