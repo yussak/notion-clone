@@ -2,11 +2,7 @@
 
 import { BLOCK_TYPES } from "@/constants/blockType";
 import { Block } from "@/types/block";
-import {
-  extractTypesFromBlocks,
-  getFontSize,
-  handleEnterKey,
-} from "@/utils/block";
+import { extractTypesFromBlocks, getFontSize, addBlock } from "@/utils/block";
 import { use, useEffect, useRef, useState } from "react";
 
 type PageProps = {
@@ -65,10 +61,10 @@ export default function Page({ params }: PageProps) {
     block: Block
   ) => {
     if (e.key === "Enter") {
-      // handleEnterKeyを純粋関数にするためにここに書いている
+      // addBlockを純粋関数にするためにここに書いている
       e.preventDefault();
 
-      const result = handleEnterKey(blocks, index);
+      const result = addBlock(blocks, index);
       if (!result) return;
 
       setBlocks(result.newBlocks);

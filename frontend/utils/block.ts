@@ -45,7 +45,7 @@ export const getFontSize = (type: string): string => {
   }
 };
 
-export const handleEnterKey = (blocks, currentIndex: number) => {
+export const addBlock = (blocks, currentIndex: number) => {
   // 一番下の行だけでブロックを追加する
   if (currentIndex !== blocks.length - 1) return;
 
