@@ -45,7 +45,6 @@ export const getFontSize = (type: string): string => {
   }
 };
 
-// TODO: currentIndexじゃなく追加位置のインデックスのほうが良さそう
 export const insertBlockAfter = (blocks, currentIndex: number) => {
   const newBlocks = [...blocks];
   const nextFocusIndex = currentIndex + 1;

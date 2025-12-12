@@ -14,7 +14,6 @@ type PageProps = {
   params: Promise<{ id: string }>;
 };
 
-// TODO: 保存ボタンを押しても保存されない場合がありそう
 export default function Page({ params }: PageProps) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const { id } = use(params);
@@ -59,7 +58,6 @@ export default function Page({ params }: PageProps) {
     fetchBlocks();
   }, [id]);
 
-  // TODO: 関数分離
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     currentIndex: number,
