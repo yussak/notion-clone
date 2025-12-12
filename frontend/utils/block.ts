@@ -60,7 +60,7 @@ export const insertBlockAfter = (blocks: Block[], currentIndex: number) => {
   return { newBlocks, nextFocusIndex };
 };
 
-export const removeBlockAt = (blocks, currentIndex: number) => {
+export const removeBlockAt = (blocks: Block[], currentIndex: number) => {
   const newBlocks = [...blocks];
   newBlocks.splice(currentIndex, 1);
 
