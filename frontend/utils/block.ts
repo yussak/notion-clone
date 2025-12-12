@@ -46,9 +46,10 @@ export const getFontSize = (type: string): string => {
 };
 
 // TODO: currentIndexじゃなく追加位置のインデックスのほうが良さそう
-export const addBlock = (blocks, currentIndex: number) => {
+export const insertBlockAfter = (blocks, currentIndex: number) => {
   const newBlocks = [...blocks];
-  newBlocks.splice(currentIndex + 1, 0, {
+  const nextFocusIndex = currentIndex + 1;
+  newBlocks.splice(nextFocusIndex, 0, {
     id: null,
     type: BLOCK_TYPES.PARAGRAPH,
     content: "",
@@ -56,7 +57,7 @@ export const addBlock = (blocks, currentIndex: number) => {
     position: 0,
   });
 
-  return { newBlocks, nextFocusIndex: currentIndex + 1 };
+  return { newBlocks, nextFocusIndex };
 };
 
 export const deleteBlock = (blocks, currentIndex: number) => {

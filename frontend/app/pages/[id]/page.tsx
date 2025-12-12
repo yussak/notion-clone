@@ -5,7 +5,7 @@ import { Block } from "@/types/block";
 import {
   extractTypesFromBlocks,
   getFontSize,
-  addBlock,
+  insertBlockAfter,
   deleteBlock,
 } from "@/utils/block";
 import { use, useEffect, useRef, useState } from "react";
@@ -62,17 +62,17 @@ export default function Page({ params }: PageProps) {
   // TODO: 関数分離
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
-    index: number,
+    currentIndex: number,
     block: Block
   ) => {
     if (e.key === "Enter") {
       // 一番下の行だけでブロックを追加する
-      if (index !== blocks.length - 1) return;
+      if (currentIndex !== blocks.length - 1) return;
 
-      // addBlockを純粋関数にするためにここに書いている
+      // insertBlockAfterを純粋関数にするためにここに書いている
       e.preventDefault();
 
-      const result = addBlock(blocks, index);
+      const result = insertBlockAfter(blocks, currentIndex);
 
       setBlocks(result.newBlocks);
       setNextFocusBlockIndex(result.nextFocusIndex);
@@ -87,7 +87,7 @@ export default function Page({ params }: PageProps) {
         setDeletedBlockIds((prev) => [...prev, block.id]);
       }
 
-      const result = deleteBlock(blocks, index);
+      const result = deleteBlock(blocks, currentIndex);
       if (!result) return;
 
       setBlocks(result.newBlocks);
