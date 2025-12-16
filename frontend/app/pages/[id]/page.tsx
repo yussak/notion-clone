@@ -19,7 +19,13 @@ export default function Page({ params }: PageProps) {
   const { id } = use(params);
 
   const [blocks, setBlocks] = useState<Block[]>([
-    { id: null, type: BLOCK_TYPES.PARAGRAPH, content: "", position: 0 },
+    {
+      id: null,
+      type: BLOCK_TYPES.PARAGRAPH,
+      content: "",
+      position: 0,
+      indentLevel: 0,
+    },
   ]);
 
   const [deletedBlockIds, setDeletedBlockIds] = useState<string[]>([]);
@@ -89,6 +95,15 @@ export default function Page({ params }: PageProps) {
 
       setBlocks(result.newBlocks);
       setNextFocusBlockIndex(result.nextFocusIndex);
+    } else if (e.key === "Tab") {
+      e.preventDefault();
+      if (block.type !== BLOCK_TYPES.LIST) return;
+
+      const newBlocks = [...blocks];
+
+      newBlocks[currentIndex].indentLevel = block.indentLevel + 1;
+
+      setBlocks(newBlocks);
     }
   };
 
@@ -152,7 +167,11 @@ export default function Page({ params }: PageProps) {
   return (
     <div>
       {blocks.map((block, i) => (
-        <div key={i} className={`block-${block.type}`}>
+        <div
+          key={i}
+          className={`block-${block.type}`}
+          style={{ marginLeft: `${(block.indentLevel || 0) * 24}px` }}
+        >
           <input
             type="text"
             placeholder="blockの中身"
