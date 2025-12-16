@@ -32,6 +32,8 @@ model Block {
   position Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  parentId String? @map("parent_id") @db.Uuid
+  indentLevel Int @default(0) @map("indent_level")
 
   @@index([pageId])
   @@map("blocks")
