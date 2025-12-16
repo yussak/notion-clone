@@ -49,6 +49,8 @@ export const createBlocks = async (req: Request, res: Response) => {
         type,
         content,
         position: position ?? 0,
+        parentId: parentId ?? null,
+        indentLevel: indentLevel ?? 0,
       },
     });
 

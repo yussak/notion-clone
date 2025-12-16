@@ -117,6 +117,8 @@ export default function Page({ params }: PageProps) {
               type: block.type,
               content: block.content,
               position: index,
+              parentId: block.parentId,
+              indentLevel: block.indentLevel,
             }),
           }
         );
@@ -132,6 +134,8 @@ export default function Page({ params }: PageProps) {
             type: block.type,
             content: block.content,
             position: index,
+            parentId: block.parentId,
+            indentLevel: block.indentLevel,
           }),
         });
         return block;
@@ -148,7 +152,7 @@ export default function Page({ params }: PageProps) {
   return (
     <div>
       {blocks.map((block, i) => (
-        <div key={i}>
+        <div key={i} className={`block-${block.type}`}>
           <input
             type="text"
             placeholder="blockの中身"
