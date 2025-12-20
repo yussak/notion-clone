@@ -76,9 +76,8 @@ export const updateBlock = async (req: Request, res: Response) => {
       data: {
         type,
         content,
-        // TODO: ?? って必要か？値そのまま受け取れば良さそうだが…
-        position: position ?? 0,
-        indentLevel: indentLevel ?? 0,
+        position: position,
+        indentLevel: indentLevel,
       },
     });
 
