@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   createPage,
   createBlocks,
-  updateBlocks,
+  updateBlock,
   deleteBlock,
   getPage,
 } from "../controllers/pageController.js";
@@ -13,7 +13,7 @@ pagesRouter.post("/pages", createPage);
 
 // MEMO:一旦pageに書いてる
 pagesRouter.post("/pages/:pageId/blocks", createBlocks);
-pagesRouter.put("/blocks/:blockId", updateBlocks);
+pagesRouter.put("/blocks/:blockId", updateBlock);
 pagesRouter.delete("/blocks/:blockId", deleteBlock);
 pagesRouter.get("/pages/:id", getPage);
 

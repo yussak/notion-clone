@@ -34,7 +34,6 @@ export const createPage = async (req: Request, res: Response) => {
 };
 
 // MEMO: 一旦pageに書いてる
-// TODO: createBlockにする
 export const createBlocks = async (req: Request, res: Response) => {
   try {
     const { pageId } = req.params;
@@ -63,8 +62,7 @@ export const createBlocks = async (req: Request, res: Response) => {
 };
 
 // MEMO: 一旦pageに書いてる
-// TODO: updateBlockにする
-export const updateBlocks = async (req: Request, res: Response) => {
+export const updateBlock = async (req: Request, res: Response) => {
   try {
     const { blockId } = req.params;
     const { type, content, position, indentLevel } = req.body;
