@@ -55,6 +55,7 @@ export const insertBlockAfter = (blocks: Block[], currentIndex: number) => {
     content: "",
     // MEMO: 現状はsavePromisesでposition: indexとしているのでここでは仮で0をセットで良さそう
     position: 0,
+    indentLevel: 0,
   });
 
   return { newBlocks, nextFocusIndex };

@@ -3,4 +3,6 @@ export type Block = {
   type: string;
   content: string;
   position: number;
+  indentLevel: number;
+  parentId?: string;
 };

@@ -37,7 +37,7 @@ export const createPage = async (req: Request, res: Response) => {
 export const createBlocks = async (req: Request, res: Response) => {
   try {
     const { pageId } = req.params;
-    const { type, content, position } = req.body;
+    const { type, content, position, indentLevel } = req.body;
 
     if (!pageId) {
       return res.status(400).json({ error: "Page ID is required" });
@@ -49,6 +49,8 @@ export const createBlocks = async (req: Request, res: Response) => {
         type,
         content,
         position: position ?? 0,
+        // parentId: parentId ?? null,
+        indentLevel: indentLevel ?? 0,
       },
     });
 
@@ -60,10 +62,10 @@ export const createBlocks = async (req: Request, res: Response) => {
 };
 
 // MEMO: 一旦pageに書いてる
-export const updateBlocks = async (req: Request, res: Response) => {
+export const updateBlock = async (req: Request, res: Response) => {
   try {
     const { blockId } = req.params;
-    const { type, content, position } = req.body;
+    const { type, content, position, indentLevel } = req.body;
 
     if (!blockId) {
       return res.status(400).json({ error: "Block ID is required" });
@@ -74,7 +76,8 @@ export const updateBlocks = async (req: Request, res: Response) => {
       data: {
         type,
         content,
-        position: position ?? 0,
+        position: position,
+        indentLevel: indentLevel,
       },
     });
 
